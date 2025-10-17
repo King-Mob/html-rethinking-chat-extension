@@ -8,11 +8,10 @@
     <div id="container">Loading...</div>
     <p id="userId"></p>
 
-    <script src="https://unpkg.com/matrix-widget-api@1.13.1/dist/api.min.js"></script>
+    <script src="https://unpkg.com/matrix-widget-api@1.3.1/dist/api.min.js"></script>
     <script type="text/javascript">
         function parseFragment() {
-            const fragmentString = window.location.hash || "?";
-            return new URLSearchParams(fragmentString.substring(Math.max(fragmentString.indexOf("?"), 0)));
+            return new URLSearchParams(window.location.search);
         }
 
         function assertParam(fragment, name) {
@@ -35,8 +34,14 @@
             let isSticky = false;
 
             // Set up the widget API as soon as possible to avoid problems with the client
-            const widgetApi = new mxwidgets.WidgetApi(widgetId, targetOrigin);
-            widgetApi.requestCapability(mxwidgets.MatrixCapabilities.AlwaysOnScreen);
+
+            // const widgetApi = new mxwidgets().WidgetApi(widgetId, targetOrigin);
+            const widgetApi = new (mxwidgets().WidgetApi)
+
+            console.log(widgetApi)
+            console.log(mxwidgets().MatrixCapabilities)
+
+            widgetApi.requestCapability(mxwidgets().MatrixCapabilities.AlwaysOnScreen);
 
             widgetApi.on("ready", function () {
                 // Fill in the basic widget details now that we're allowed to operate.
